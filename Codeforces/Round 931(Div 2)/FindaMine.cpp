@@ -1,49 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
 int n,m,p;
+int ask(int r,int c){
+    cout<<"? "<<r<<" "<<c<<endl;
+    int res; cin>>res; return res;
+}
 int main(){
-    int t;
-    cin>>t;
+    int t; cin>>t;
     while(t--){
         cin>>n>>m;
-        cout<<"? "<<1<<" "<<1<<endl;
-        int x=1,y=1;
-        cin>>p; 
-        if(p==0){
-            cout<<"! "<<1<<" "<<1<<endl;
+        int d1=ask(1,1);
+        if(d1==0){
+            cout<<"! 1 1"<<endl; 
             continue;
         }
-        if(y+p>m){
-            y=m;
-            x+=p-m;
-
-        }
-        else y+=p;
-        int r=min(y-1,n-x);
-        cout<<"? "<<x<<" "<<y<<endl;
-        cin>>p;
-        if(p==0){
-            cout<<"! "<<x<<" "<<y<<endl;
+        int d2=ask(1,m);
+        if(d2==0){
+            cout<<"! 1 "<<m<<endl; 
             continue;
         }
-        int p1=p,p2=1;
-        x=x+r,y=y-r;
-        cout<<"? "<<x<<" "<<y<<endl;
-        cin>>p; 
-        if(p==0){
-            cout<<"! "<<x<<" "<<y<<endl;
+        int d3=ask(n,1);
+        if(d3==0){
+            cout<<"! "<<n<<" 1"<<endl; 
             continue;
         }
-        p2=p;
-        x=x-r,y=y+r;
-        if(p1%2==0 && x+p1/2<=n && y-p1/2>=1){
-            cout<<"? "<<x+p1/2<<" "<<y-p1/2<<endl;
-            cin>>p;
-            if(p==0){
-                cout<<"! "<<x+p1/2<<" "<<y-p1/2<<endl;
-                continue;
-            }
-        }
-        cout<<"! "<<x-p2/2<<" "<<y+p2/2<<endl;
+        int r1=(d1+d2-m+3)/2;
+        int c1=(d1-d2+m+1)/2;
+        int r2=(d1-d3+n+1)/2;
+        int c2=(d1+d3-n+3)/2;
+        if(r1>=1&&r1<=n&&c1>=1&&c1<=m&&ask(r1,c1)==0) 
+            cout<<"! "<<r1<<" "<<c1<<endl;
+        else cout<<"! "<<r2<<" "<<c2<<endl;
     }
+    return 0;
 }
